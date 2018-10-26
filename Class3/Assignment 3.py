@@ -4,6 +4,22 @@ Created on Thu Oct 25 16:32:24 2018
 
 @author: grcos
 """
+import unittest
+
+class TestClassMethods(unittest.TestCase):
+
+    def test_hp(self):
+        self.assertTrue("hp", 200)
+        
+    def tes_ph_dmg(self):
+        self.assertEqual("ph_dmg", 100)
+
+    
+if __name__ == '__main__':
+    unittest.main()
+        
+#======================================================# 
+
 
 class Character:
     
