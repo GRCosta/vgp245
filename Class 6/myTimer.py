@@ -15,11 +15,20 @@ def counter_label(label):
 root = tk.Tk()
 root.title("TIME BOMB!!!!")
 
-img = tk.PhotoImage(file='TimeBomb.gif')
+#img = tk.PhotoImage(file='TimeBomb.gif', format="gif -index 2")
 
-label = tk.Label(root, fg='blue', image = img)
+frames = [tk.PhotoImage(file='TimeBomb.gif',format = 'gif -index %i' %(i)) for i in range(20)]
+
+def update(ind):
+
+    frame = frames[ind]
+    ind += 1
+    label.configure(image=frame)
+    root.after(5, update, ind)
+
+label = tk.Label(root, fg='blue')
 label.pack()
 
 counter_label(label)
-
+root.after(5, update, 0)
 root.mainloop()
