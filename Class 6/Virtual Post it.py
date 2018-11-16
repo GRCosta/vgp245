@@ -14,7 +14,7 @@ import datetime
 
 
 root = tkinter.Tk(className="#Virtual Post-it")
-notePad = scroll.ScrolledText(root, width=80, height=50, background="light yellow")
+notePad = scroll.ScrolledText(root, width=80, height=40, background="light yellow")
 frame = tkinter.Frame(root)
 frame.pack(side=tkinter.TOP)
 
@@ -27,7 +27,7 @@ def comm_open_file():
         file.close()
         
 def comm_save_file():
-    file = filedialog.asksaveasfile(mode='w')
+    file = filedialog.asksaveasfile(mode='w', initialfile='Post it.txt', defaultextension=".txt", filetypes=[("All Files","*.*"), ("Text Documents","*.txt")])
     if file != None:
         data = notePad.get('1.0', END + '-1c')
         file.write(data)
