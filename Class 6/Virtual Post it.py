@@ -27,7 +27,7 @@ def comm_open_file():
         file.close()
         
 def comm_save_file():
-    file = filedialog.asksaveasfile(mode='w', initialfile='Post it.txt', defaultextension=".txt", filetypes=[("All Files","*.*"), ("Text Documents","*.txt")])
+    file = filedialog.asksaveasfile(mode='w', initialfile='Post it .txt', defaultextension=".txt", filetypes=[("All Files","*.*"), ("Text Documents","*.txt")])
     if file != None:
         data = notePad.get('1.0', END + '-1c')
         file.write(data)
