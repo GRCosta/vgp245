@@ -1,7 +1,10 @@
-import random, time, pygame, sys
+import random
+import time
+import pygame
+import sys
 from pygame.locals import *
 
-
+#Definitions
 FPS = 25
 WINDOWWIDTH = 640
 WINDOWHEIGHT = 480
@@ -18,6 +21,7 @@ MOVEDOWNFREQ = 0.1
 XMARGIN = int((WINDOWWIDTH - BOARDWIDTH * BOXSIZE) / 2)
 TOPMARGIN = WINDOWHEIGHT - (BOARDHEIGHT * BOXSIZE) - 5
 
+#Color table
 #               R    G    B
 
 WHITE       = (255, 255, 255)
@@ -295,7 +299,7 @@ def main():
 
         else:
 
-            pygame.mixer.music.load('tetrisc.mid')
+            pygame.mixer.music.load('tetrisb.mid')
 
         pygame.mixer.music.play(-1, 0.0)
 
