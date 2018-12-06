@@ -6,14 +6,18 @@
 # P - Pause game
 
 
+import pygame
+import sys
+import tkinter
 from random import randrange as rand
-import pygame, sys
+import PIL.Image
+import PIL.ImageTk
 
 # The configuration
 config = {
 	'cell_size':	20,
 	'cols':		16,
-	'rows':		16,
+	'rows':		24,
 	'delay':	750,
 	'maxfps':	30
 }
@@ -51,6 +55,8 @@ tetris_shapes = [
 	[[7, 7],
 	 [7, 7]]			# 'O' Shape
 ]
+
+
 
 def rotate_clockwise(shape):
 	return [ [ shape[y][x]
@@ -239,6 +245,50 @@ Press space to continue""")
 					
 			dont_burn_my_cpu.tick(config['maxfps'])
 
-if __name__ == '__main__':
-	App = TetrisApp()
-	App.run()
+# if __name__ == '__main__':
+# 	App = TetrisApp()
+# 	App.run()
+
+
+# Initial Menus
+
+main = tkinter.Tk(className="#Tetris")
+
+logo = tkinter.PhotoImage(file='tetrisCover.png')
+
+label = tkinter.Label(main, compound = tkinter.CENTER, image = logo)
+label.pack()
+mframe = tkinter.Frame(main)
+mframe.pack()
+
+def clearwin(event=None):
+    '''Clear the main windows frame of all widgets'''
+    for child in mframe.winfo_children():
+        child.destroy()
+
+def win1(event=None):
+    '''Create the main window'''
+    clearwin()
+    b1 = tkinter.Button(mframe, command=win2, text='Start Game')
+    b1.pack()
+    b2 = tkinter.Button(mframe, command=win3, text='Options')
+    b2.pack()
+
+def win2(event=None):
+    '''Create the second sub window'''
+    clearwin()
+    if __name__ == '__main__':
+	    App = TetrisApp()
+	    App.run()
+
+def win3(event=None):
+    '''Create the third sub window'''
+    clearwin()
+    label1 = tkinter.Label(mframe, text='Settings')
+    label1.pack()
+    back = tkinter.Button(mframe, command=win1, text='Back')
+    back.pack()
+
+win1()
+
+main.mainloop()

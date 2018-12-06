@@ -1,7 +1,7 @@
-import tkinter as tk
-root = tk.Tk
+import tkinter
+root = tkinter.Tk()
 
-w = tk.Label(root, text = "Hello world!!")
+w = root.Label(root, text = "Hello world!!")
 
 w.pack()
 

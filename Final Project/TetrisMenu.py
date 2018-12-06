@@ -3,15 +3,12 @@ import PIL.Image
 import PIL.ImageTk
 
 
-main = tkinter.Tk()
+main = tkinter.Tk(className="#Tetris")
 
-imagePath = r"D:\My Documents\LaSalle College\Quarter 12 - Fall 2018\03. Python Programming\VGP245\Final Project"
+logo = tkinter.PhotoImage(file='tetrisCover.png')
 
-ref = PIL.Image.open(imagePath)
-photo = PIL.ImageTk.PhotoImage(image)
-
-
-
+label = tkinter.Label(main, compound = tkinter.CENTER, image = logo)
+label.pack()
 mframe = tkinter.Frame(main)
 mframe.pack()
 
@@ -31,10 +28,14 @@ def win1(event=None):
 def win2(event=None):
     '''Create the second sub window'''
     clearwin()
-    entry1 = tkinter.Entry(mframe)
-    entry1.pack()
-    back = tkinter.Button(mframe, command=win1, text='Quit')
-    back.pack()
+    if __name__ == '__main__':
+	    App = TetrisApp()
+	    App.run()
+   
+    #entry1 = tkinter.Entry(mframe)
+    #entry1.pack()
+    #back = tkinter.Button(mframe, command=win1, text='Quit')
+    #back.pack()
 
 def win3(event=None):
     '''Create the third sub window'''

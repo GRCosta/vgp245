@@ -2,7 +2,7 @@ import tkinter as tk
 
 root = tk.Tk()
 root.title("Hello VGP")
-img = tk.PhotoImage(file='megaman.png')
+img = tk.PhotoImage(file='solid snake.png')
 #w = tk.Label(root, compound= tk.CENTER, text="Hello world", image=img)
 msg = """
 lksjalkjf
