@@ -89,7 +89,7 @@ def new_board():
 	board += [[ 1 for x in range(config['cols'])]]
 	return board
 
-class TetrisApp(object):
+class TetrisApp():
 	def __init__(self):
 		pygame.init()
 		pygame.key.set_repeat(250,25)
@@ -97,8 +97,10 @@ class TetrisApp(object):
 		self.height = config['cell_size']*config['rows']
 		
 		self.screen = pygame.display.set_mode((self.width, self.height))
-		pygame.event.set_blocked(pygame.MOUSEMOTION) 
-		
+		pygame.event.set_blocked(pygame.MOUSEMOTION) # We do not need
+		                                             # mouse movement
+		                                             # events, so we
+		                                             # block them.
 		self.init_game()
 	
 	def new_stone(self):
@@ -214,7 +216,7 @@ class TetrisApp(object):
 		pygame.time.set_timer(pygame.USEREVENT+1, config['delay'])
 		dont_burn_my_cpu = pygame.time.Clock()
 		while 1:
-			self.screen.fill((0,0,0))
+			self.screen.fill((0,100,0))
 			if self.gameover:
 				self.center_msg("""Game Over!
 				Press space to continue""")
@@ -267,8 +269,8 @@ def win1(event=None):
     clearwin()
     b1 = tkinter.Button(mframe, command=StartGame, text='Start Game')
     b1.pack()
-    # b2 = tkinter.Button(mframe, command=Options, text='Options')
-    # b2.pack()
+    b2 = tkinter.Button(mframe, command=Options, text='Options')
+    b2.pack()
 
 def StartGame(event=None):
     '''Create the second sub window'''

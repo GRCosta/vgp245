@@ -1,10 +1,12 @@
-import pygame
-import sys
-import tkinter
+import tkinter as tk
+from tkinter import *
 from random import randrange as rand
+import os
+import pygame
 import PIL.Image
 import PIL.ImageTk
 
+###### =============================================== ######
 # The configuration
 config = {
 	'cell_size':	20,
@@ -55,6 +57,9 @@ tetris_shapes = [
 # Escape - Quit game
 # P - Pause game
 
+###### =============================================== ######
+
+# Functions
 
 def rotate_clockwise(shape):
 	return [ [ shape[y][x]
@@ -89,7 +94,8 @@ def new_board():
 	board += [[ 1 for x in range(config['cols'])]]
 	return board
 
-class TetrisApp(object):
+
+class TetrisApp():
 	def __init__(self):
 		pygame.init()
 		pygame.key.set_repeat(250,25)
@@ -97,8 +103,10 @@ class TetrisApp(object):
 		self.height = config['cell_size']*config['rows']
 		
 		self.screen = pygame.display.set_mode((self.width, self.height))
-		pygame.event.set_blocked(pygame.MOUSEMOTION) 
-		
+		pygame.event.set_blocked(pygame.MOUSEMOTION) # We do not need
+		                                             # mouse movement
+		                                             # events, so we
+		                                             # block them.
 		self.init_game()
 	
 	def new_stone(self):
@@ -241,50 +249,56 @@ class TetrisApp(object):
 					
 			dont_burn_my_cpu.tick(config['maxfps'])
 
-# if __name__ == '__main__':
-# 	App = TetrisApp()
-# 	App.run()
+###### =============================================== ######
+
+# Interface
+
+class MainMenu:
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.logo = tk.PhotoImage(file='tetrisCover.png')
+        self.label = tk.Label(self.master, compound = tk.CENTER, image = self.logo)
+        self.button1 = tk.Button(self.frame, text = 'Start Game', width = 25, command = self.StartGame)
+        self.label.pack()
+        self.button1.pack()
+        self.frame.pack()
+
+    def StartGame(self):
+        self.newWindow = tk.Toplevel(self.master)
+        self.app = GameScreen(self.newWindow)
+
+class GameScreen(TetrisApp):
+    def __init__(self, master):
+        self.master = master
+        
+        self.embed = tk.Frame(self.master, width = config['cell_size']*config['cols'], height = config['cell_size']*config['rows']) #creates embed frame for pygame window
+        self.embed.pack(side = LEFT) #packs window to the left
+
+        self.buttonwin = tk.Frame(self.master, width = 75, height = 500)
+        self.buttonwin.pack(side = LEFT)        
+        
+        os.environ['SDL_WINDOWID'] = str(self.embed.winfo_id())
+        os.environ['SDL_VIDEODRIVER'] = 'windib'
+        
+        TetrisApp.__init__(self)
+
+        self.button1 = Button(self.master,text = 'Pause', width = 25,  command=TetrisApp.toggle_pause)
+        self.button1.pack()
+      
+        self.quitButton = tk.Button(self.master, text = 'Quit', width = 25, command = self.close_windows)
+        self.quitButton.pack(side = BOTTOM)
 
 
-# Initial Menus
+    def close_windows(self):
+        self.master.destroy()
 
-main = tkinter.Tk(className="#Tetris")
+def Tetris():
+    rootTetris = tk.Tk(className=" Tetris")    
 
-logo = tkinter.PhotoImage(file='tetrisCover.png')
+    app = MainMenu(rootTetris)
+    rootTetris.mainloop()
 
-label = tkinter.Label(main, compound = tkinter.CENTER, image = logo)
-label.pack()
-mframe = tkinter.Frame(main)
-mframe.pack()
 
-def clearwin(event=None):
-    '''Clear the main windows frame of all widgets'''
-    for child in mframe.winfo_children():
-        child.destroy()
-
-def win1(event=None):
-    '''Create the main window'''
-    clearwin()
-    b1 = tkinter.Button(mframe, command=StartGame, text='Start Game')
-    b1.pack()
-    # b2 = tkinter.Button(mframe, command=Options, text='Options')
-    # b2.pack()
-
-def StartGame(event=None):
-    '''Create the second sub window'''
-    clearwin()
-    if __name__ == '__main__':
-	    App = TetrisApp()
-	    App.run()
-
-def Options(event=None):
-    '''Create the third sub window'''
-    clearwin()
-    label1 = tkinter.Label(mframe, text='Settings')
-    label1.pack()
-    back = tkinter.Button(mframe, command=win1, text='Back')
-    back.pack()
-
-win1()
-
-main.mainloop()
+if __name__ == '__main__':
+    Tetris()
