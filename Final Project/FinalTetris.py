@@ -226,7 +226,6 @@ class TetrisApp:
         pygame.time.set_timer(pygame.USEREVENT+1, config['delay'])
         dont_burn_my_cpu = pygame.time.Clock()
         while 1:
-            print('.')
             self.screen.fill((0,0,0))
             if self.gameover:
                 self.center_msg("""Game Over!
@@ -240,6 +239,7 @@ class TetrisApp:
                                      (self.stone_x,
                                       self.stone_y))
             pygame.display.update()
+			rootTetris.mainloop()
 
             for event in pygame.event.get():
                 if event.type == pygame.USEREVENT+1:
