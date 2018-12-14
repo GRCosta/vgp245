@@ -241,11 +241,6 @@ class TetrisApp(object):
 					
 			dont_burn_my_cpu.tick(config['maxfps'])
 
-# if __name__ == '__main__':
-# 	App = TetrisApp()
-# 	App.run()
-
-
 # Initial Menus
 
 main = tkinter.Tk(className="#Tetris")
